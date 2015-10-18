@@ -27,7 +27,6 @@
         {
             var manufacturers = this.mongoHandler.ReadCollection("Manufacturers");
 
-            System.Console.WriteLine("starting migration of manufacturers.");
             using (var db = new CarPartsDbContext())
             {
                 foreach (var manufacturer in manufacturers)
@@ -40,14 +39,12 @@
 
                 db.SaveChanges();
             }
-            System.Console.WriteLine("finished migration of manufacturers.");
         }
 
         private void MigrateVendors()
         {
             var vendors = this.mongoHandler.ReadCollection("Vendors");
 
-            System.Console.WriteLine("starting migration of vendors.");
             using (var db = new CarPartsDbContext())
             {
                 foreach (var vendor in vendors)
@@ -60,14 +57,12 @@
 
                 db.SaveChanges();
             }
-            System.Console.WriteLine("finished migration of vendors.");
         }
 
         private void MigrateParts()
         {
             var parts = this.mongoHandler.ReadCollection("Parts");
 
-            System.Console.WriteLine("starting migration of parts.");
             using (var db = new CarPartsDbContext())
             {
                 foreach (var part in parts)
@@ -105,7 +100,6 @@
 
                 db.SaveChanges();
             }
-            System.Console.WriteLine("finished migration of parts.");
         }
     }
 }
