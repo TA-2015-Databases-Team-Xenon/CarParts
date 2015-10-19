@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarParts.Data", "CarParts.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarParts.ConsoleClient", "CarParts.ConsoleClient\CarParts.ConsoleClient.csproj", "{8CE87978-D912-4D00-8AFE-86578050B373}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarParts.Reports", "CarParts.Reports\CarParts.Reports.csproj", "{28DE7FC8-19D5-4A0E-BCF7-51A0A3EA9EA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarParts.Utils", "CarParts.Utils\CarParts.Utils.csproj", "{DE291B7C-E518-4BA1-8DFC-05547764B5E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{8CE87978-D912-4D00-8AFE-86578050B373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE87978-D912-4D00-8AFE-86578050B373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE87978-D912-4D00-8AFE-86578050B373}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28DE7FC8-19D5-4A0E-BCF7-51A0A3EA9EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28DE7FC8-19D5-4A0E-BCF7-51A0A3EA9EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28DE7FC8-19D5-4A0E-BCF7-51A0A3EA9EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28DE7FC8-19D5-4A0E-BCF7-51A0A3EA9EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE291B7C-E518-4BA1-8DFC-05547764B5E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE291B7C-E518-4BA1-8DFC-05547764B5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE291B7C-E518-4BA1-8DFC-05547764B5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE291B7C-E518-4BA1-8DFC-05547764B5E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
