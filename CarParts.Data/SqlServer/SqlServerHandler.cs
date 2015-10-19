@@ -13,7 +13,9 @@
 
             using (var db = new CarPartsDbContext())
             {
-                reports = db.Sales.Select(s => new PartReportInputModel
+                reports = db.Sales.GroupBy(s => s.PartId)
+                    .Select(gr => gr.FirstOrDefault())
+                    .Select(s => new PartReportInputModel
                 {
                     PartId = s.PartId,
                     PartName = s.Part.Name,
@@ -22,7 +24,6 @@
                     Quantity = s.Quantity,
                     TotalPrice = s.Quantity * s.UnitPrice
                 })
-                .Take(10)
                 .ToList();
             }
 

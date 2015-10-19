@@ -5,6 +5,7 @@
     using System.Linq;
 
     using Data.Excell;
+    using Data.Json;
     using Data.MongoDb;
     using Data.MySql;
     using Data.Pdf;
@@ -26,6 +27,7 @@
             var excellHandler = new ExcellHandler();
             var mongoToSql = new MongoToSqlServerLoader();
             var zipExtractor = new ZipExtractor();
+            var jsonHandler = new JsonHandler();
 
             // Mongolab.com credentials - Username: TeamXenon , Passsword: xenon123
             //// These tasks are done. You can physically delete the data from your SqlServerDatabase and the extracted excell files and run this method again.
@@ -33,7 +35,9 @@
 
             //ProblemTwo(pdfHandler);
 
-            ProblemFour(sqlHandler, mySqlHandler);
+            //// NOTE!!! - you need to go to CarParts.Data.MySql project and in its App.config file 
+            //// you should change the password with which you connect to your localhost instance of the MySQL Workbench server.
+            //ProblemFour(sqlHandler, mySqlHandler, jsonHandler);
 
             //// This will throw because coutries are already added to the cloud and have unique constraint to their name in sql server.
             //// You can delete physically the data and run the method if you like.
@@ -50,11 +54,12 @@
             
         }
 
-        private static void ProblemFour(SqlServerHandler sqlHandler, MySqlHandler mySqlHandler)
+        private static void ProblemFour(SqlServerHandler sqlHandler, MySqlHandler mySqlHandler, JsonHandler jsonHandler)
         {
             var reports = sqlHandler.ReadPartReports();
 
-            //mySqlHandler.WriteReports(reports);
+            jsonHandler.GenerateJsonReports(reports);
+            mySqlHandler.WriteReports(reports);
         }
 
         private static void ProblemTwo(PdfHandler pdfHandler)
