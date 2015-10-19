@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Country.cs" />
+    <Compile Include="XmlCountry.cs" />
     <Compile Include="MongoDbModels\Manufacturer.cs" />
     <Compile Include="MongoDbModels\Part.cs" />
     <Compile Include="MongoDbModels\PartCategory.cs" />

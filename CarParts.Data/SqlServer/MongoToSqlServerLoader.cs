@@ -11,21 +11,17 @@
 
     public class MongoToSqlServerLoader
     {
-        private MongoDbHandler mongoHandler;
-
-        public void Load()
+        public void Load(MongoDbHandler mongoHandler)
         {
-            this.mongoHandler = new MongoDbHandler();
-
-            this.MigrateManufacturers();
-            this.MigrateVendors();
-            this.MigrateParts();
+            this.MigrateManufacturers(mongoHandler);
+            this.MigrateVendors(mongoHandler);
+            this.MigrateParts(mongoHandler);
         }
 
 
-        private void MigrateManufacturers()
+        private void MigrateManufacturers(MongoDbHandler mongoHandler)
         {
-            var manufacturers = this.mongoHandler.ReadCollection("Manufacturers");
+            var manufacturers = mongoHandler.ReadCollection("Manufacturers");
 
             using (var db = new CarPartsDbContext())
             {
@@ -41,9 +37,9 @@
             }
         }
 
-        private void MigrateVendors()
+        private void MigrateVendors(MongoDbHandler mongoHandler)
         {
-            var vendors = this.mongoHandler.ReadCollection("Vendors");
+            var vendors = mongoHandler.ReadCollection("Vendors");
 
             using (var db = new CarPartsDbContext())
             {
@@ -59,9 +55,9 @@
             }
         }
 
-        private void MigrateParts()
+        private void MigrateParts(MongoDbHandler mongoHandler)
         {
-            var parts = this.mongoHandler.ReadCollection("Parts");
+            var parts = mongoHandler.ReadCollection("Parts");
 
             using (var db = new CarPartsDbContext())
             {

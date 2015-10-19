@@ -13,6 +13,7 @@
 
         private readonly string databaseName;
         private readonly string connectionString;
+        private MongoDatabase database;
 
         public MongoDbHandler()
             : this(ConnectionString)
@@ -20,15 +21,16 @@
         }
 
         public MongoDbHandler(string connectionString)
-        {
+        {           
             this.connectionString = connectionString;
             this.databaseName = DatabaseName;
+            this.database = this.GetDatabase(this.databaseName);
         }
 
         public void WriteCollection<T>(string collectionName, IEnumerable<T> collectionItems)
         {
-            var database = this.GetDatabase(this.databaseName);
-            MongoCollection<T> collection = database.GetCollection<T>(collectionName);
+            //var database = this.GetDatabase(this.databaseName);
+            MongoCollection<T> collection = this.database.GetCollection<T>(collectionName);
 
             foreach (var item in collectionItems)
             {
@@ -38,8 +40,8 @@
 
         public IEnumerable<BsonDocument> ReadCollection(string collectionName)
         {
-            var database = this.GetDatabase(this.databaseName);
-            var collection = database.GetCollection(collectionName);
+            //var database = this.GetDatabase(this.databaseName);
+            var collection = this.database.GetCollection(collectionName);
 
             return collection.FindAll();
         }

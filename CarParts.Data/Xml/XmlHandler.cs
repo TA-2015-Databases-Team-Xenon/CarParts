@@ -30,11 +30,12 @@
         }
 
         // TODO: Method for generating reports and saving them to the file system;
+        
+               
 
-        // TODO: Method for reading additional data from xml file and populating it the Mongo and SQLServer databases(Tsvetan is on this now);
-        public IEnumerable<Country> GetCountries()
+        public IEnumerable<XmlCountry> GetCountries()
         {
-            var countries = new List<Country>();
+            var countries = new List<XmlCountry>();
 
             XmlDocument doc = new XmlDocument();
             doc.Load(this.fileToLoadPath);
@@ -43,31 +44,22 @@
 
             foreach (XmlNode countryNode in countriesNodeList)
             {
-                Country country = new Country();
+                XmlCountry country = new XmlCountry();
 
                 country.Id = int.Parse(countryNode["CountryId"].InnerText);
 
                 country.Name = countryNode["CountryName"].InnerText;
 
-                using (var db = new CarPartsDbContext())
+                var vendorIds = countryNode.SelectNodes("Vendors/VendorId");
+                foreach (XmlNode vendorId in vendorIds)
                 {
-                    var vendorIds = countryNode.SelectNodes("Vendors/VendorId");
-                    foreach (XmlNode vendorId in vendorIds)
-                    {
-                        var id = int.Parse(vendorId.InnerText);
-                        var vendor = db.Vendors.Where(v => v.Id == id).FirstOrDefault();
+                    country.VendorsIds.Add(int.Parse(vendorId.InnerText));
+                }
 
-                        country.Vendors.Add(vendor);
-                    }
-
-                    var manufacturersIds = countryNode.SelectNodes("Manufacturers/ManufacturerId");
-                    foreach (XmlNode manufacturerId in manufacturersIds)
-                    {
-                        var id = int.Parse(manufacturerId.InnerText);
-                        var manufacturer = db.Manufacturers.Where(m => m.Id == id).FirstOrDefault();
-
-                        country.Manufacturers.Add(manufacturer);
-                    }
+                var manufacturersIds = countryNode.SelectNodes("Manufacturers/ManufacturerId");
+                foreach (XmlNode manufacturerId in manufacturersIds)
+                {
+                    country.ManufacturersIds.Add(int.Parse(manufacturerId.InnerText));
                 }
 
                 countries.Add(country);
