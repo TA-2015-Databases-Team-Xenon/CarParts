@@ -4,6 +4,8 @@
 
     public class PartReportInputModel
     {
+        public int Id { get; set; }
+
         public int PartId { get; set; }
 
         public string PartName { get; set; }
