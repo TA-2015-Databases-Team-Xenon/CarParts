@@ -6,19 +6,15 @@
 
     public class MongoDataSeeder
     {
-        private MongoDbHandler mongoHandler;
-
-        public void Seed()
+        public void Seed(MongoDbHandler mongoHandler)
         {
-            this.mongoHandler = new MongoDbHandler();
-
-            this.SeedCategories();
-            this.SeedManufacturers();
-            this.SeedVendors();
-            this.SeedParts();
+            this.SeedCategories(mongoHandler);
+            this.SeedManufacturers(mongoHandler);
+            this.SeedVendors(mongoHandler);
+            this.SeedParts(mongoHandler);
         }
 
-        private void SeedCategories()
+        private void SeedCategories(MongoDbHandler mongoHandler)
         {
             var categories = new List<PartCategory>()
             {
@@ -27,10 +23,10 @@
                 new PartCategory(3, "Exterior")
             };
 
-            this.mongoHandler.WriteCollection<PartCategory>("PartCategories", categories);
+            mongoHandler.WriteCollection<PartCategory>("PartCategories", categories);
         }
 
-        private void SeedManufacturers()
+        private void SeedManufacturers(MongoDbHandler mongoHandler)
         {
             var manufacturers = new List<Manufacturer>();
 
@@ -50,10 +46,10 @@
                 }
             }
 
-            this.mongoHandler.WriteCollection<Manufacturer>("Manufacturers", manufacturers);
+            mongoHandler.WriteCollection<Manufacturer>("Manufacturers", manufacturers);
         }
 
-        private void SeedVendors()
+        private void SeedVendors(MongoDbHandler mongoHandler)
         {
             var vendors = new List<Vendor>();
 
@@ -73,10 +69,10 @@
                 }
             }
 
-            this.mongoHandler.WriteCollection<Vendor>("Vendors", vendors);
+            mongoHandler.WriteCollection<Vendor>("Vendors", vendors);
         }
 
-        private void SeedParts()
+        private void SeedParts(MongoDbHandler mongoHandler)
         {
             var parts = new List<Part>();
 
@@ -110,7 +106,7 @@
                 parts.Add(part);
             }
 
-            this.mongoHandler.WriteCollection<Part>("Parts", parts);
+            mongoHandler.WriteCollection<Part>("Parts", parts);
         }
     }
 }
