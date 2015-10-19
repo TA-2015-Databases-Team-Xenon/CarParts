@@ -1,9 +1,12 @@
 ﻿namespace CarParts.ConsoleClient
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using Data.Excell;
     using Data.MongoDb;
+    using Data.SQLite;
     using Data.SqlServer;
     using Data.Xml;
     using Models;
@@ -41,6 +44,14 @@
             //new XmlToSqlServerLoader().LoadCountries(countries);
             //mongoHandler.WriteCollection<XmlCountry>("Countries", countries);
             //Console.WriteLine("successfully write down countries to MongoDB and SqlServer databases");
+            var partNames = new List<string>();
+            using (var db = new CarPartsDbContext())
+            {
+                partNames = db.Parts.Select(p => p.Name).ToList();
+            }
+
+            new SqliteHandler().Seed(partNames);
+
         }
     }
 }
