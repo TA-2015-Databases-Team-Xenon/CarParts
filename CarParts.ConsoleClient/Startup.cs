@@ -6,6 +6,7 @@
 
     using Data.Excell;
     using Data.MongoDb;
+    using Data.Pdf;
     using Data.SQLite;
     using Data.SqlServer;
     using Data.Xml;
@@ -44,15 +45,16 @@
             //new XmlToSqlServerLoader().LoadCountries(countries);
             //mongoHandler.WriteCollection<XmlCountry>("Countries", countries);
             //Console.WriteLine("successfully write down countries to MongoDB and SqlServer databases");
-            var partNames = new List<string>();
-            using (var db = new CarPartsDbContext())
-            {
-                partNames = db.Parts.Select(p => p.Name).ToList();
-            }
+            //var partNames = new List<string>();
+            //using (var db = new CarPartsDbContext())
+            //{
+            //    partNames = db.Parts.Select(p => p.Name).ToList();
+            //}
 
-            new SqliteHandler().Seed(partNames);
+            //new SqliteHandler().Seed(partNames);
 
-            //Console.WriteLine(new SqliteHandler().ReadTaxes().FirstOrDefault().ProductName);
+            new PdfHandler().GenerateSalesInfoPdf();
+            Console.WriteLine("done");
         }
     }
 }
