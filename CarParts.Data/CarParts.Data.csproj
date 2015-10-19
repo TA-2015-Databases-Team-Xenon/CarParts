@@ -65,12 +65,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Excell\ExcellHandler.cs" />
+    <Compile Include="Json\JsonHandler.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MongoDb\MongoDataSeeder.cs" />
     <Compile Include="MongoDb\MongoDbHandler.cs" />
+    <Compile Include="Pdf\PdfHandler.cs" />
+    <Compile Include="Pdf\PdfWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServer\CarPartsDbContext.cs" />
     <Compile Include="SqlServer\MongoToSqlServerLoader.cs" />
+    <Compile Include="Xml\XmlHandler.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
