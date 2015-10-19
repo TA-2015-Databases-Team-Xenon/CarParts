@@ -20,5 +20,7 @@
         public virtual IDbSet<Manufacturer> Manufacturers { get; set; }
 
         public virtual IDbSet<Sale> Sales { get; set; }
+
+        public virtual IDbSet<Country> Countries { get; set; }
     }
 }

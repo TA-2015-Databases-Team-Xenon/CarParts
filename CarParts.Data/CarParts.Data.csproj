@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServer\CarPartsDbContext.cs" />
     <Compile Include="SqlServer\MongoToSqlServerLoader.cs" />
+    <Compile Include="SqlServer\XmlToSqlServerLoader.cs" />
     <Compile Include="Xml\XmlHandler.cs" />
   </ItemGroup>
   <ItemGroup />
