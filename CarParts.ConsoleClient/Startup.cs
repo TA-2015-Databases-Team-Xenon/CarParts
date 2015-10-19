@@ -52,6 +52,7 @@
 
             new SqliteHandler().Seed(partNames);
 
+            //Console.WriteLine(new SqliteHandler().ReadTaxes().FirstOrDefault().ProductName);
         }
     }
 }
