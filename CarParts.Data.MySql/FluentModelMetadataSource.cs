@@ -19,21 +19,10 @@
                 PartName = report.PartName,
                 Vendor = report.Vendor,
                 Price = report.Price,
-                Quantity = report.Quantity
+                Quantity = report.Quantity,
+                TotalPrice = report.TotalPrice
             }).ToTable("PartReportInputModels");
             reportConfiguration.HasProperty(r => r.Id).IsIdentity(KeyGenerator.Autoinc);
-
-            //var reportMapping = new MappingConfiguration<PartReportInputModel>();
-            //reportMapping.MapType(report => new
-            //{
-            //    Id = report.Id,
-            //    PartId = report.PartId,
-            //    PartName = report.PartName,
-            //    Vendor = report.Vendor,
-            //    Price = report.Price,
-            //    Quantity = report.Quantity
-            //}).ToTable("PartReportInputModels");
-            //reportMapping.HasProperty(r => r.Id).IsIdentity();
 
             configurations.Add(reportConfiguration);
 

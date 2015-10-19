@@ -9,39 +9,35 @@
     using Data.MySql;
     using Data.Pdf;
     using Data.SQLite;
-    using Data.SqlServer;
     using Data.Xml;
     using Models;
     using Utils;
+    using CarParts.Data.SqlServer;
 
     public class Startup
     {
         public static void Main()
         {
-            //var mongoHandler = new MongoDbHandler();
+            var mongoHandler = new MongoDbHandler();
+            var sqlHandler = new SqlServerHandler();
+            var mySqlHandler = new MySqlHandler();
+            var pdfHandler = new PdfHandler();
+            var xmlToSql = new XmlToSqlServerLoader();
+            var excellHandler = new ExcellHandler();
+            var mongoToSql = new MongoToSqlServerLoader();
+            var zipExtractor = new ZipExtractor();
 
             // Mongolab.com credentials - Username: TeamXenon , Passsword: xenon123
             //// These tasks are done. You can physically delete the data from your SqlServerDatabase and the extracted excell files and run this method again.
-            //ProblemOne(mongoHandler);
+            //ProblemOne(mongoHandler, mongoToSql, zipExtractor, excellHandler);
 
-            //ProblemTwo();
+            //ProblemTwo(pdfHandler);
 
-            var report = new PartReportInputModel
-            {
-                PartId = 2,
-                PartName = "Shlyokavica",
-                Price = 14,
-                Quantity = 1,
-                Vendor = "Bai Iliq"
-            };
-
-            List<PartReportInputModel> reports = new List<PartReportInputModel>(){report};
-
-            new MySqlHandler().WriteReports(reports);
+            ProblemFour(sqlHandler, mySqlHandler);
 
             //// This will throw because coutries are already added to the cloud and have unique constraint to their name in sql server.
             //// You can delete physically the data and run the method if you like.
-            //ProblemFive(mongoHandler);
+            //ProblemFive(mongoHandler, xmlToSql);
             
             //var partNames = new List<string>();
             //using (var db = new CarPartsDbContext())
@@ -54,22 +50,29 @@
             
         }
 
-        private static void ProblemTwo()
+        private static void ProblemFour(SqlServerHandler sqlHandler, MySqlHandler mySqlHandler)
         {
-            new PdfHandler().GenerateSalesInfoPdf();
+            var reports = sqlHandler.ReadPartReports();
+
+            //mySqlHandler.WriteReports(reports);
         }
 
-        private static void ProblemFive(MongoDbHandler mongoHandler)
+        private static void ProblemTwo(PdfHandler pdfHandler)
+        {
+            pdfHandler.GenerateSalesInfoPdf();
+        }
+
+        private static void ProblemFive(MongoDbHandler mongoHandler, XmlToSqlServerLoader xmlToSql)
         {
             var xmlHandler = new XmlHandler();
             var countries = xmlHandler.GetCountries();
-            
-            new XmlToSqlServerLoader().LoadCountries(countries);
+
+            xmlToSql.LoadCountries(countries);
             mongoHandler.WriteCollection<XmlCountry>("Countries", countries);
             Console.WriteLine("successfully write down countries to MongoDB and SqlServer databases");
         }
 
-        private static void ProblemOne(MongoDbHandler mongoHandler)
+        private static void ProblemOne(MongoDbHandler mongoHandler, MongoToSqlServerLoader mongoToSql, ZipExtractor extractor, ExcellHandler excellHandler)
         {
             // Populating database in MongoLab with some useless testing data
             try
@@ -81,13 +84,13 @@
                 Console.WriteLine("Just in case you uncomment and try to populate the cloud database with existing id's and it throws :)");
             }
 
-            new MongoToSqlServerLoader().Load(mongoHandler);
+            mongoToSql.Load(mongoHandler);
             Console.WriteLine("successsfully added all in a sql database");
 
-            new ZipExtractor().Extract();
+            extractor.Extract();
             Console.WriteLine("Files extracted successfully.");
 
-            new ExcellHandler().MigrateFromExcellToSqlServer();
+            excellHandler.MigrateFromExcellToSqlServer();
             Console.WriteLine("successfully added sales table from excell files.");
         }
     }
