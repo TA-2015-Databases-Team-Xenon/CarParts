@@ -1,4 +1,4 @@
-﻿namespace CarParts.Models.ReportModels
+﻿namespace CarParts.Data.MySql
 {
     using System;
 
@@ -16,14 +16,6 @@
 
         public int Quantity { get; set; }
 
-        public decimal TotalPrice
-        {
-            get
-            {
-                decimal totalPrice = this.Quantity * this.Price;
-
-                return Math.Round(totalPrice, 2);
-            }
-        }
+        public decimal TotalPrice { get; set; }
     }
 }

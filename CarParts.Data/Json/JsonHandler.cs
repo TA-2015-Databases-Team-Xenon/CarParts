@@ -1,7 +1,9 @@
 ﻿namespace CarParts.Data.Json
 {
+    using System.Collections.Generic;
     using System.IO;
-    using CarParts.Models.ReportModels;
+
+    using Data.MySql;
     using Newtonsoft.Json;
 
     public class JsonHandler
@@ -9,25 +11,28 @@
         private const string DefaultOutputDirectory = "..\\..\\..\\DataOutput\\Json-Reports";
         private const string OutputFileFormat = "{0}\\{1}.json";
         
-        public void GenerateJsonReport(PartReportInputModel productReport, string outputDirectory = DefaultOutputDirectory)
+        public void GenerateJsonReports(IEnumerable<PartReportInputModel> productReports, string outputDirectory = DefaultOutputDirectory)
         {
             if (!Directory.Exists(outputDirectory))
             {
                 Directory.CreateDirectory(outputDirectory);
             }
 
-            using (var writer = File.CreateText(string.Format(OutputFileFormat,outputDirectory, productReport.PartId)))
+            foreach (var report in productReports)
             {
-                writer.Write(JsonConvert.SerializeObject(new
+                using (var writer = File.CreateText(string.Format(OutputFileFormat, outputDirectory, report.PartId)))
                 {
-                    id = productReport.PartId,
-                    name = productReport.PartName,
-                    vendor = productReport.Vendor,
-                    price = productReport.Price,
-                    quantity = productReport.Quantity,
-                    total = productReport.TotalPrice
-                },
-                Formatting.Indented));
+                    writer.Write(JsonConvert.SerializeObject(new
+                    {
+                        id = report.PartId,
+                        name = report.PartName,
+                        vendor = report.Vendor,
+                        price = report.Price,
+                        quantity = report.Quantity,
+                        total = report.TotalPrice
+                    },
+                    Formatting.Indented));
+                }
             }
         }
     }
