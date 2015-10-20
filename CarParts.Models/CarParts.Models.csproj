@@ -85,15 +85,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <Compile Include="Country.cs" />
     <Compile Include="ReportModels\PartReportInputModel.cs" />
     <Compile Include="SQLiteModels\ProductTax.cs" />
     <Compile Include="VendorFinancialData.cs" />
     <Compile Include="VendorFinancialReport.cs" />
     <Compile Include="XmlCountry.cs" />
->>>>>>> e665e78b5a7763928381c6f2cea779787de2b562
     <Compile Include="MongoDbModels\Manufacturer.cs" />
     <Compile Include="MongoDbModels\Part.cs" />
     <Compile Include="MongoDbModels\PartCategory.cs" />
