@@ -13,8 +13,6 @@
 
             using (var db = new FluentModel())
             {
-                UpdateDatabase();
-
                 reports = db.PartReportInputModels.ToList();
             }
 

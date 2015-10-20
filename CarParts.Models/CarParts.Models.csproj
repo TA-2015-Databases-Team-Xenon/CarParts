@@ -88,6 +88,8 @@
     <Compile Include="Country.cs" />
     <Compile Include="ReportModels\PartReportInputModel.cs" />
     <Compile Include="SQLiteModels\ProductTax.cs" />
+    <Compile Include="VendorFinancialData.cs" />
+    <Compile Include="VendorFinancialReport.cs" />
     <Compile Include="XmlCountry.cs" />
     <Compile Include="MongoDbModels\Manufacturer.cs" />
     <Compile Include="MongoDbModels\Part.cs" />

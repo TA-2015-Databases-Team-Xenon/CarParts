@@ -28,6 +28,7 @@
             var mongoToSql = new MongoToSqlServerLoader();
             var zipExtractor = new ZipExtractor();
             var jsonHandler = new JsonHandler();
+            var sqliteHandler = new SqliteHandler();
 
             // Mongolab.com credentials - Username: TeamXenon , Passsword: xenon123
             //// These tasks are done. You can physically delete the data from your SqlServerDatabase and the extracted excell files and run this method again.
@@ -43,15 +44,18 @@
             //// You can delete physically the data and run the method if you like.
             //ProblemFive(mongoHandler, xmlToSql);
             
-            //var partNames = new List<string>();
-            //using (var db = new CarPartsDbContext())
-            //{
-            //    partNames = db.Parts.Select(p => p.Name).ToList();
-            //}
+            //ProblemSix(excellHandler, sqlHandler, sqliteHandler, mySqlHandler);                       
+        }
 
-            //new SqliteHandler().Seed(partNames);
+        private static void ProblemSix(ExcellHandler excellHandler, SqlServerHandler sqlHandler, SqliteHandler sqliteHandler, MySqlHandler mySqlHandler)
+        {
+            var partNames = sqlHandler.ReadPartNames();
+            sqliteHandler.Seed(partNames);
 
-            
+            var reports = mySqlHandler.ReadReports();
+            var taxes = sqliteHandler.ReadTaxes();
+
+            excellHandler.GenerateExcellFile(reports, taxes, "VendorsFinancialReport.xlsx"); 
         }
 
         private static void ProblemFour(SqlServerHandler sqlHandler, MySqlHandler mySqlHandler, JsonHandler jsonHandler)

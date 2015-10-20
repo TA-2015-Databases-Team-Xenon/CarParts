@@ -29,5 +29,19 @@
 
             return reports;
         }
+
+        public IEnumerable<string> ReadPartNames()
+        {
+            var names = new List<string>();
+
+            using (var db = new CarPartsDbContext())
+            {
+                names = db.Parts
+                    .Select(p => p.Name)
+                    .ToList();
+            }
+
+            return names;
+        }
     }
 }
