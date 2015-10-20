@@ -18,7 +18,7 @@
 
         private string fileToLoadPath;
         private string reportsDestinationPath;
-        private XmlSerializer serializer;
+        //private XmlSerializer serializer;
 
         public XmlHandler()
             : this(DefaultXmlToLoadFilePath, DefaultReportsDestinationPath)

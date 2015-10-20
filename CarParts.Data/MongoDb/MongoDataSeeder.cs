@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using Models.MongoDbModels;
+    using MongoDB.Bson;
 
     public class MongoDataSeeder
     {
@@ -16,65 +17,65 @@
 
         private void SeedCategories(MongoDbHandler mongoHandler)
         {
-            var categories = new List<PartCategory>()
+            var categories = new List<BsonDocument>()
             {
-                new PartCategory(1, "Electrics"),
-                new PartCategory(2, "Cooling"),
-                new PartCategory(3, "Exterior")
+                new PartCategory(1, "Electrics").ToBsonDocument(),
+                new PartCategory(2, "Cooling").ToBsonDocument(),
+                new PartCategory(3, "Exterior").ToBsonDocument()
             };
 
-            mongoHandler.WriteCollection<PartCategory>("PartCategories", categories);
+            mongoHandler.WriteCollection("PartCategories", categories);
         }
 
         private void SeedManufacturers(MongoDbHandler mongoHandler)
         {
-            var manufacturers = new List<Manufacturer>();
+            var manufacturers = new List<BsonDocument>();
 
             for (int i = 1; i < 11; i++)
             {
                 if (i % 3 == 0)
                 {
-                    manufacturers.Add(new Manufacturer(i, "Cheap Parts Co." + i));
+                    manufacturers.Add(new Manufacturer(i, "Cheap Parts Co." + i).ToBsonDocument());
                 }
                 else if (i % 3 == 1)
                 {
-                    manufacturers.Add(new Manufacturer(i, "Expensive Parts Ltd." + i));
+                    manufacturers.Add(new Manufacturer(i, "Expensive Parts Ltd." + i).ToBsonDocument());
                 }
                 else
                 {
-                    manufacturers.Add(new Manufacturer(i, "Bai Ivan's Garage" + i));
+                    manufacturers.Add(new Manufacturer(i, "Bai Ivan's Garage" + i).ToBsonDocument());
                 }
             }
 
-            mongoHandler.WriteCollection<Manufacturer>("Manufacturers", manufacturers);
+            mongoHandler.WriteCollection("Manufacturers", manufacturers);
         }
 
         private void SeedVendors(MongoDbHandler mongoHandler)
         {
-            var vendors = new List<Vendor>();
+            var vendors = new List<BsonDocument>();
 
             for (int i = 1; i < 11; i++)
             {
                 if (i % 3 == 0)
                 {
-                    vendors.Add(new Vendor(i, "Auto Trade" + i));
+                    vendors.Add(new Vendor(i, "Auto Trade" + i).ToBsonDocument());
                 }
                 else if (i % 3 == 1)
                 {
-                    vendors.Add(new Vendor(i, "Pesho's shop" + i));
+                    vendors.Add(new Vendor(i, "Pesho's shop" + i).ToBsonDocument());
                 }
                 else
                 {
-                    vendors.Add(new Vendor(i, "Gosho Land" + i));
+                    vendors.Add(new Vendor(i, "Gosho Land" + i).ToBsonDocument());
                 }
             }
 
-            mongoHandler.WriteCollection<Vendor>("Vendors", vendors);
+            mongoHandler.WriteCollection("Vendors", vendors);
         }
 
         private void SeedParts(MongoDbHandler mongoHandler)
         {
-            var parts = new List<Part>();
+            var parts = new List<BsonDocument>();
 
             for (int i = 1; i < 30; i++)
             {
@@ -103,10 +104,10 @@
                     part.VendorIds.Add(i);
                 }
 
-                parts.Add(part);
+                parts.Add(part.ToBsonDocument());
             }
 
-            mongoHandler.WriteCollection<Part>("Parts", parts);
+            mongoHandler.WriteCollection("Parts", parts);
         }
     }
 }

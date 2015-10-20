@@ -21,15 +21,15 @@
 
         private void MigrateManufacturers(MongoDbHandler mongoHandler)
         {
-            var manufacturers = mongoHandler.ReadCollection("Manufacturers");
+            var manufacturers = mongoHandler.ReadCollection("Manufacturers").Result;
 
             using (var db = new CarPartsDbContext())
             {
                 foreach (var manufacturer in manufacturers)
                 {
                     var sqlManufacturer = new Manufacturer();
-                    sqlManufacturer.Id = manufacturer["_id"].ToInt32();
-                    sqlManufacturer.Name = manufacturer["Name"].ToString();
+                    sqlManufacturer.Id = manufacturer["_id"].AsInt32;
+                    sqlManufacturer.Name = manufacturer["Name"].AsString;
                     db.Manufacturers.Add(sqlManufacturer);
                 }
 
@@ -39,15 +39,15 @@
 
         private void MigrateVendors(MongoDbHandler mongoHandler)
         {
-            var vendors = mongoHandler.ReadCollection("Vendors");
+            var vendors = mongoHandler.ReadCollection("Vendors").Result;
 
             using (var db = new CarPartsDbContext())
             {
                 foreach (var vendor in vendors)
                 {
                     var sqlVendor = new Vendor();
-                    sqlVendor.Id = vendor["_id"].ToInt32();
-                    sqlVendor.Name = vendor["Name"].ToString();
+                    sqlVendor.Id = vendor["_id"].AsInt32;
+                    sqlVendor.Name = vendor["Name"].AsString;
                     db.Vendors.Add(sqlVendor);
                 }
 
@@ -57,30 +57,30 @@
 
         private void MigrateParts(MongoDbHandler mongoHandler)
         {
-            var parts = mongoHandler.ReadCollection("Parts");
+            var parts = mongoHandler.ReadCollection("Parts").Result;
 
             using (var db = new CarPartsDbContext())
             {
                 foreach (var part in parts)
                 {
                     var sqlPart = new Part();
-                    sqlPart.Id = part["_id"].ToInt32();
-                    sqlPart.Name = part["Name"].ToString();
-                    sqlPart.Price = decimal.Parse(part["Price"].ToString());
-                    sqlPart.ManufacturerId = part["ManufacturerId"].ToInt32();
+                    sqlPart.Id = part["_id"].AsInt32;
+                    sqlPart.Name = part["Name"].AsString;
+                    sqlPart.Price = decimal.Parse(part["Price"].AsString);
+                    sqlPart.ManufacturerId = part["ManufacturerId"].AsInt32;
                     sqlPart.Manufacturer = db.Manufacturers.Where(m => m.Id == sqlPart.ManufacturerId)
                                                                        .FirstOrDefault();                                       
 
                     foreach (var categoryId in part["Categories"] as BsonArray)
                     {
-                        int category = categoryId.ToInt32();
+                        int category = categoryId.AsInt32;
                         sqlPart.Categories.Add((PartCategory)category);
                     }
 
                     var vendorIds = new List<int>();
                     foreach (var vendorId in part["VendorIds"] as BsonArray)
                     {
-                        vendorIds.Add(vendorId.ToInt32());
+                        vendorIds.Add(vendorId.AsInt32);
                     }
 
                     sqlPart.Vendors = db.Vendors.Where(v => vendorIds.Contains(v.Id)).ToList();

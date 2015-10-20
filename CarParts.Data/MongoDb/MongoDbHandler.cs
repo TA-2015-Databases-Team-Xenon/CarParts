@@ -1,8 +1,10 @@
 ﻿namespace CarParts.Data.MongoDb
 {
     using System.Collections.Generic;
-
+    using System.Threading.Tasks;
+    using CarParts.Models.MongoDbModels;
     using MongoDB.Bson;
+    using MongoDB.Bson.Serialization;
     using MongoDB.Driver;
 
     public class MongoDbHandler
@@ -13,7 +15,7 @@
 
         private readonly string databaseName;
         private readonly string connectionString;
-        private MongoDatabase database;
+        private IMongoDatabase database;
 
         public MongoDbHandler()
             : this(ConnectionString)
@@ -27,31 +29,35 @@
             this.database = this.GetDatabase(this.databaseName);
         }
 
-        public void WriteCollection<T>(string collectionName, IEnumerable<T> collectionItems)
+        public async void WriteCollection(string collectionName, IEnumerable<BsonDocument> collectionItems)
         {
             //var database = this.GetDatabase(this.databaseName);
-            MongoCollection<T> collection = this.database.GetCollection<T>(collectionName);
+            var collection = this.database.GetCollection<BsonDocument>(collectionName);
 
-            foreach (var item in collectionItems)
-            {
-                collection.Insert(item);
-            }
+            await collection.InsertManyAsync(collectionItems);
         }
 
-        public IEnumerable<BsonDocument> ReadCollection(string collectionName)
+        public async Task<List<BsonDocument>> ReadCollection(string collectionName)
         {
+
+            
             //var database = this.GetDatabase(this.databaseName);
-            var collection = this.database.GetCollection(collectionName);
+            var collection = this.database.GetCollection<BsonDocument>(collectionName);
 
-            return collection.FindAll();
+            List<BsonDocument> list = await collection.Find(_ => true).ToListAsync();
+            
+            // return collection.FindAll();
+
+            return list;
         }
 
-        private MongoDatabase GetDatabase(string databaseName)
+        private IMongoDatabase GetDatabase(string databaseName)
         {
+            BsonClassMap.RegisterClassMap<PartCategory>();
+
             var mongoClient = new MongoClient(this.connectionString);
-            var mongoServer = mongoClient.GetServer();
 
-            var database = mongoServer.GetDatabase(databaseName);
+            var database = mongoClient.GetDatabase(databaseName);
             return database;
         }
     }
