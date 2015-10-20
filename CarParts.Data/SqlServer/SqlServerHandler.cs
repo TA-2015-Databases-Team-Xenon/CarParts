@@ -4,6 +4,7 @@
     using System.Linq;
 
     using Data.MySql;
+    using Models;
 
     public class SqlServerHandler
     {
@@ -42,6 +43,6 @@
             }
 
             return names;
-        }
+        }        
     }
 }
