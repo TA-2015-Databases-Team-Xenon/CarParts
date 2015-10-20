@@ -1,6 +1,8 @@
 ﻿namespace CarParts.ConsoleClient
 {
     using System;
+    using System.IO;
+
     using CarParts.Data.SqlServer;
     using Data.Excell;
     using Data.Json;
@@ -13,6 +15,9 @@
 
     public class Startup
     {
+        private const string OutputDirectory = "..\\..\\..\\DataOutput";
+
+        // Warning - will not work - see comment above ProblemFour method invokation in Main()
         public static void Main()
         {
             var mongoHandler = new MongoDbHandler();
@@ -26,6 +31,11 @@
             var jsonHandler = new JsonHandler();
             var sqliteHandler = new SqliteHandler();
             var xmlHandler = new XmlHandler();
+
+            if (!Directory.Exists(OutputDirectory))
+            {
+                Directory.CreateDirectory(OutputDirectory);
+            }
 
             //// Mongolab.com credentials - Username: TeamXenon , Passsword: xenon123
 
