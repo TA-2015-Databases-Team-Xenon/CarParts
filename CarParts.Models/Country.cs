@@ -19,7 +19,7 @@
 
         [Required]
         [MaxLength(50)]
-        [Index(IsUnique=true)]
+        [Index(IsUnique = true)]
         public string Name { get; set; }
 
         public virtual ICollection<Vendor> Vendors

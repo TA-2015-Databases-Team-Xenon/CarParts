@@ -17,7 +17,8 @@
 
         public FluentModel()
             : base(connectionStringName, backend, metadataSource)
-        { }
+        { 
+        }
 
         public IQueryable<PartReportInputModel> PartReportInputModels
         {

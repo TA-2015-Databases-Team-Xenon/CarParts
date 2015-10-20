@@ -79,12 +79,12 @@
 
             for (int i = 1; i < 30; i++)
             {
-                Part part = new Part(i, i + 100, (i / 3 + 1));
+                Part part = new Part(i, i + 100, (i / 3) + 1);
                 if (i % 3 == 0)
                 {
                     part.Name = "Cool Radiator" + i;
                     part.Categories.Add(2);
-                    part.VendorIds.Add(i / 3 + 1);
+                    part.VendorIds.Add((i / 3) + 1);
                     part.VendorIds.Add(i);
                 }
                 else if (i % 3 == 1)
@@ -92,7 +92,7 @@
                     part.Name = "Bi-Xenon Headlights" + i;
                     part.Categories.Add(1);
                     part.Categories.Add(3);
-                    part.VendorIds.Add(i / 3 + 1);
+                    part.VendorIds.Add((i / 3) + 1);
                     part.VendorIds.Add(i);
                 }
                 else
@@ -100,7 +100,7 @@
                     part.Name = "Radiator Fan" + i;
                     part.Categories.Add(1);
                     part.Categories.Add(2);
-                    part.VendorIds.Add(i / 3 + 1);
+                    part.VendorIds.Add((i / 3) + 1);
                     part.VendorIds.Add(i);
                 }
 

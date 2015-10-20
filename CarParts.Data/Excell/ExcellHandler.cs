@@ -38,7 +38,6 @@
 
             foreach (var fileName in excellFilesNames)
             {
-
                 var sales = this.ReadSalesFromExcellSheet(fileName);
                 this.WriteSalesToSqlServer(sales);
             }
@@ -69,7 +68,6 @@
             var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("Vendors Financial Report");
 
-            //Columns
             ws.Cell("B2").Value = "Vendor";
             ws.Cell("C2").Value = "Incomes";
             ws.Cell("D2").Value = "Taxes";

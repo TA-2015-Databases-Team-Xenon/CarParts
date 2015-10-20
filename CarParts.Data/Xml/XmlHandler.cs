@@ -18,7 +18,6 @@
 
         private string fileToLoadPath;
         private string reportsDestinationPath;
-        //private XmlSerializer serializer;
 
         public XmlHandler()
             : this(DefaultXmlToLoadFilePath, DefaultReportsDestinationPath)
@@ -66,7 +65,6 @@
             report.Save(this.reportsDestinationPath + fileName);
         }
                
-
         public IEnumerable<XmlCountry> GetCountries()
         {
             var countries = new List<XmlCountry>();

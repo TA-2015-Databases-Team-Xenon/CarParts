@@ -1,9 +1,7 @@
 ﻿namespace CarParts.ConsoleClient
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
+    using CarParts.Data.SqlServer;
     using Data.Excell;
     using Data.Json;
     using Data.MongoDb;
@@ -11,9 +9,7 @@
     using Data.Pdf;
     using Data.SQLite;
     using Data.Xml;
-    using Models;
     using Utils;
-    using CarParts.Data.SqlServer;
 
     public class Startup
     {
@@ -31,7 +27,7 @@
             var sqliteHandler = new SqliteHandler();
             var xmlHandler = new XmlHandler();
 
-            // Mongolab.com credentials - Username: TeamXenon , Passsword: xenon123
+            //// Mongolab.com credentials - Username: TeamXenon , Passsword: xenon123
 
             ProblemOne(mongoHandler, mongoToSql, zipExtractor, excellHandler);
 
@@ -56,15 +52,15 @@
 
         private static void ProblemOne(MongoDbHandler mongoHandler, MongoToSqlServerLoader mongoToSql, ZipExtractor extractor, ExcellHandler excellHandler)
         {
-            //// Populating database in MongoLab with some useless testing data
-            //try
-            //{                
-            //  new MongoDataSeeder().Seed(mongoHandler);
-            //}
-            //catch(Exception ex)
-            //{
-            //    Console.WriteLine("Just in case you uncomment and try to populate the cloud database with existing id's and it throws :)");
-            //}
+            /*// populating database in mongolab with some useless testing data
+            try
+            {
+                new mongodataseeder().seed(mongohandler);
+            }
+            catch (exception ex)
+            {
+                console.writeline("just in case you uncomment and try to populate the cloud database with existing id's and it throws :)");
+            }*/
 
             mongoToSql.Load(mongoHandler);
             Console.WriteLine("successsfully added all in a sql database");
@@ -99,13 +95,15 @@
             // If these are runned before they will throw because coutries are already added to the cloud and have unique constraint to their name in sql server.
             // You can delete physically the data and run the method if you like.
             xmlToSql.LoadCountries(countries);
-            //try // Just in case :)
-            //{
-            //    mongoHandler.WriteCollection<XmlCountry>("Countries", countries);
-            //}
-            //catch (Exception ex)
-            //{
-            //}
+
+            /*try // Just in case :)
+            {
+                mongoHandler.WriteCollection<XmlCountry>("Countries", countries);
+            }
+            catch (Exception ex)
+            {
+            }*/
+
             Console.WriteLine("Successfully write down countries from XML to MongoDB and SqlServer databases");
         }
 

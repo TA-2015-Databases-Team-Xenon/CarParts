@@ -28,7 +28,7 @@
                 {
                     sqlCommand.Parameters.AddWithValue("@id", counter);
                     sqlCommand.Parameters.AddWithValue("@name", name);
-                    sqlCommand.Parameters.AddWithValue("@tax", 20 + counter / 5);
+                    sqlCommand.Parameters.AddWithValue("@tax", 20 + (counter / 5));
 
                     sqlCommand.ExecuteNonQuery();
 
@@ -65,6 +65,5 @@
 
             return productTaxes;
         }
-
     }
 }

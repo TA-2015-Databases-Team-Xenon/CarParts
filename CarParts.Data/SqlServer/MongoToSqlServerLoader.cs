@@ -18,7 +18,6 @@
             this.MigrateParts(mongoHandler);
         }
 
-
         private void MigrateManufacturers(MongoDbHandler mongoHandler)
         {
             var manufacturers = mongoHandler.ReadCollection("Manufacturers").Result;

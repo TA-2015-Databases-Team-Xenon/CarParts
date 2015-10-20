@@ -22,15 +22,16 @@
             {
                 using (var writer = File.CreateText(string.Format(OutputFileFormat, outputDirectory, report.PartId)))
                 {
-                    writer.Write(JsonConvert.SerializeObject(new
-                    {
-                        id = report.PartId,
-                        name = report.PartName,
-                        vendor = report.Vendor,
-                        price = report.Price,
-                        quantity = report.Quantity,
-                        total = report.TotalPrice
-                    },
+                    writer.Write(JsonConvert.SerializeObject(
+                        new
+                        {
+                            id = report.PartId,
+                            name = report.PartName,
+                            vendor = report.Vendor,
+                            price = report.Price,
+                            quantity = report.Quantity,
+                            total = report.TotalPrice
+                        },
                     Formatting.Indented));
                 }
             }

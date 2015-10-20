@@ -21,7 +21,6 @@
                     country.Id = xmlCountry.Id;
                     country.Name = xmlCountry.Name;
 
-
                     var vendors = db.Vendors.Where(v => xmlCountry.VendorsIds.Contains(v.Id))
                                                                   .ToList();
 

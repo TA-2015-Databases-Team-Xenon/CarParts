@@ -31,7 +31,6 @@
 
         public async void WriteCollection(string collectionName, IEnumerable<BsonDocument> collectionItems)
         {
-            //var database = this.GetDatabase(this.databaseName);
             var collection = this.database.GetCollection<BsonDocument>(collectionName);
 
             await collection.InsertManyAsync(collectionItems);
@@ -39,14 +38,9 @@
 
         public async Task<List<BsonDocument>> ReadCollection(string collectionName)
         {
-
-            
-            //var database = this.GetDatabase(this.databaseName);
             var collection = this.database.GetCollection<BsonDocument>(collectionName);
 
             List<BsonDocument> list = await collection.Find(_ => true).ToListAsync();
-            
-            // return collection.FindAll();
 
             return list;
         }
